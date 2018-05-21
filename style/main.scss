@@ -1,0 +1,11 @@
+$background-color: #949090;
+$font-color: #FFFFFF; // naming: primary colors, secondary cols, highlight
+
+html, body {
+  background: $background-color;
+}
+
+p,pre,h2, {
+  color: $font-color;
+}
+
