@@ -1,22 +1,21 @@
-// only development environment
-// test removing some the see what changes
 'use strict';
 
 const merge = require('webpack-merge');
 
 const commonConfig = require('./webpack.common');
 
-const {HotModuleReplacementPlugin} = require('webpack');
+const { HotModuleReplacementPlugin } = require('webpack'); // builtin webpack grabbing it from webpack, this is hot reloading, live-changes
+// oldschool : const webapack=require('webpack').HotModuleReplacementPlugin
 const webpackDevConfig = {};
 
-webpackDevConfig.mode = 'development';
-webpackDevConfig.devtool = 'inline-source-map'; // the slower the process is the better /more information I get => devtool docs
+webpackDevConfig.mode = 'development';// default to production so need to set up (build file would not be readable for safety if we had production env)
+webpackDevConfig.devtool = 'inline-source-map'; 
 
-webpackDevConfig.devServer = {
+webpackDevConfig.devServer = {// we do it when npm run watch
   contentBase: '/build',
-  open: true,// open new tab on browser
-  hot:  true, // if changes to file it refreshes it automatically
-  historyApiFallback: true,// this is if we have more routes to give illusion of single api to track history of browsing
+  open: true, // open new tab on browser
+  hot: true, // if changes to file it refreshes it automatically
+  historyApiFallback: true,
 };
 
 webpackDevConfig.plugins = [
@@ -27,12 +26,12 @@ webpackDevConfig.module = {};
 webpackDevConfig.module.rules = [
   {
     test: /\.scss$/,
-    use: [ //we need the right order of following
-      'style-loader',
-      'css-loader',
-      'sass-loader',
+    use: [ // this order is important!!
+      'style-loader', // compiles into the page, adds tag into html page
+      'css-loader', // compiles into regular string
+      'sass-loader', // looks at css file and compiles into readable css
     ],
   },
 ];
 
-module.exports = merge(commonConfig, webpackDevConfig);
+module.exports = merge(commonConfig, webpackDevConfig); // serves npm run watch
