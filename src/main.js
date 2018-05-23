@@ -8,9 +8,6 @@ import '../style/main.scss';
 
 
 class HeaderComponent extends React.Component {
-// this is an existing component and we take it with 
-// properties and overwrite it with own information with render f.
-
   render() {
     return (
       <header>
@@ -20,11 +17,8 @@ class HeaderComponent extends React.Component {
   }
 }
 class App extends React.Component {
-  constructor(props) { // defining the state of the class
+  constructor(props) { 
     super(props);
-    // we call this to use the app(chid)component to have
-    // access to parent component and the properties to change them
-
     this.state = {
       content: cowsay.say({
         text: faker.random.word(2),
@@ -32,12 +26,11 @@ class App extends React.Component {
         T: 'U ',
       }),
     };
-    this.handleTextIncrement = this.handleTextIncrement.bind(this);
+    this.handleTextChange = this.handleTextChange.bind(this);
   }
 
-  handleTextIncrement() {
+  handleTextChange() {
     this.setState(() => { 
-    
       return {
         content: cowsay.say({
           text: faker.random.word(2),
@@ -53,7 +46,7 @@ class App extends React.Component {
     <div>
     <HeaderComponent/> 
     <pre>{ this.state.content }</pre>     
-    <button onClick={ this.handleTextIncrement}> Change moo </button>
+    <button onClick={ this.handleTextChange}> Change moo </button>
     </div>
     );
   }
